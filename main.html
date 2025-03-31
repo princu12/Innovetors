@@ -1,0 +1,1960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TestGenius AI - Intelligent Test Automation</title>
+    <style>
+        /* Global Styles with Animations */
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --light-color: #f8fafc;
+            --dark-color: #1e293b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --animation-duration: 0.5s;
+            --animation-timing: cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles with Animation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: slideDown 0.5s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo img {
+            height: 40px;
+            animation: pulse 2s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.1);
+            }
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 5s ease infinite;
+            background-size: 200% 200%;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .cta-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+        
+        /* Hero Section with Animation */
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: 0;
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            line-height: 1.2;
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            from {
+                text-shadow: 0 0 5px rgba(37, 99, 235, 0.3);
+            }
+            to {
+                text-shadow: 0 0 15px rgba(37, 99, 235, 0.5);
+            }
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #64748b;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            animation: fadeIn 1s ease-out 0.6s both;
+        }
+        
+        .secondary-button {
+            background-color: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .secondary-button:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+        
+        /* Features Section with Animation */
+        .features {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h3 {
+            font-size: 2.2rem;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+            animation: lineExpand 0.8s ease-out;
+        }
+        
+        @keyframes lineExpand {
+            from {
+                width: 0;
+            }
+            to {
+                width: 80px;
+            }
+        }
+        
+        .section-title p {
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: #f8fafc;
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
+        .feature-card:nth-child(6) { animation-delay: 0.6s; }
+        
+        .feature-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-color);
+        }
+        
+        .feature-icon {
+            background-color: var(--accent-color);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: rotate(15deg) scale(1.1);
+            background-color: var(--primary-color);
+        }
+        
+        .feature-icon i {
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .feature-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .feature-card p {
+            color: #64748b;
+        }
+        
+        /* Technology Stack Section */
+        .tech-stack {
+            padding: 100px 0;
+            background-color: #f1f5f9;
+            text-align: center;
+        }
+        
+        .tech-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .tech-category {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            width: 280px;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .tech-category:nth-child(1) { animation-delay: 0.2s; }
+        .tech-category:nth-child(2) { animation-delay: 0.4s; }
+        .tech-category:nth-child(3) { animation-delay: 0.6s; }
+        .tech-category:nth-child(4) { animation-delay: 0.8s; }
+        
+        .tech-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tech-category h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .tech-category ul {
+            list-style: none;
+            text-align: left;
+        }
+        
+        .tech-category ul li {
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px dashed #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tech-category ul li i {
+            color: var(--primary-color);
+        }
+        
+        /* Expected Outcomes Section */
+        .outcomes {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .outcome-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            border-top: 3px solid var(--primary-color);
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .outcome-card:nth-child(1) { animation-delay: 0.1s; }
+        .outcome-card:nth-child(2) { animation-delay: 0.2s; }
+        .outcome-card:nth-child(3) { animation-delay: 0.3s; }
+        .outcome-card:nth-child(4) { animation-delay: 0.4s; }
+        
+        .outcome-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .outcome-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .outcome-card h4 i {
+            color: var(--primary-color);
+        }
+        
+        .outcome-card p {
+            color: #64748b;
+        }
+        
+        /* Evaluation Criteria Section */
+        .evaluation {
+            padding: 100px 0;
+            background-color: #f1f5f9;
+        }
+        
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .criterion {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .criterion:nth-child(1) { animation-delay: 0.1s; }
+        .criterion:nth-child(2) { animation-delay: 0.2s; }
+        .criterion:nth-child(3) { animation-delay: 0.3s; }
+        .criterion:nth-child(4) { animation-delay: 0.4s; }
+        .criterion:nth-child(5) { animation-delay: 0.5s; }
+        
+        .criterion:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .criterion h4 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .criterion h4 .score {
+            margin-left: auto;
+            background-color: var(--success-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .criterion p {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+        
+        /* How It Works Section */
+        .how-it-works {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .step {
+            display: flex;
+            gap: 20px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .step:nth-child(1) { animation-delay: 0.1s; }
+        .step:nth-child(2) { animation-delay: 0.3s; }
+        .step:nth-child(3) { animation-delay: 0.5s; }
+        .step:nth-child(4) { animation-delay: 0.7s; }
+        
+        .step:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .step-number {
+            background-color: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+        
+        .step:hover .step-number {
+            transform: scale(1.1);
+            background-color: var(--secondary-color);
+        }
+        
+        .step-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .step-content p {
+            color: #64748b;
+        }
+        
+        /* Demo Section */
+        .demo {
+            padding: 100px 0;
+            background-color: #f1f5f9;
+        }
+        
+        .demo-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .demo-content {
+            flex: 1;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: fadeInRight 0.8s ease-out forwards;
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .demo-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .demo-content p {
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+        
+        .demo-video {
+            flex: 1;
+            background-color: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            position: relative;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            opacity: 0;
+            transform: translateX(20px);
+            animation: fadeInLeft 0.8s ease-out 0.3s forwards;
+        }
+        
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .demo-video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* CI/CD Integration Section */
+        .ci-cd {
+            padding: 100px 0;
+            background-color: white;
+            text-align: center;
+        }
+        
+        .ci-cd-badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .ci-cd-badge {
+            background-color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: popIn 0.5s ease-out forwards;
+        }
+        
+        .ci-cd-badge:nth-child(1) { animation-delay: 0.1s; }
+        .ci-cd-badge:nth-child(2) { animation-delay: 0.2s; }
+        .ci-cd-badge:nth-child(3) { animation-delay: 0.3s; }
+        .ci-cd-badge:nth-child(4) { animation-delay: 0.4s; }
+        .ci-cd-badge:nth-child(5) { animation-delay: 0.5s; }
+        
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .ci-cd-badge:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .ci-cd-badge img {
+            height: 30px;
+            transition: transform 0.3s;
+        }
+        
+        .ci-cd-badge:hover img {
+            transform: rotate(5deg) scale(1.1);
+        }
+        
+        /* Test Generator Section */
+        .test-generator {
+            padding: 100px 0;
+            background-color: #f1f5f9;
+        }
+        
+        .generator-form {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #e2e8f0;
+            transform: perspective(1000px);
+            transition: all 0.5s ease;
+        }
+        
+        .generator-form:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transform: perspective(1000px) translateY(-5px) rotateX(1deg);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+        
+        /* Results Section */
+        .results {
+            display: none;
+            padding: 40px;
+            background-color: #f8fafc;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 4px solid var(--success-color);
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .results h4 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .test-case {
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border-left: 3px solid var(--accent-color);
+            transition: all 0.3s;
+        }
+        
+        .test-case:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .test-case h5 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .test-case p {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .test-case .test-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .test-case .test-meta span {
+            font-size: 0.8rem;
+            background-color: #e2e8f0;
+            padding: 3px 8px;
+            border-radius: 10px;
+            color: #475569;
+            transition: all 0.3s;
+        }
+        
+        .test-case:hover .test-meta span {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 80px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        
+        .footer-column ul li:hover {
+            transform: translateX(5px);
+        }
+        
+        .footer-column ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-column ul li a::before {
+            content: '→';
+            color: var(--accent-color);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        
+        .footer-column ul li:hover a::before {
+            opacity: 1;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .demo-container {
+                flex-direction: column;
+            }
+            
+            .demo-content, .demo-video {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+            
+            .generator-form {
+                padding: 30px 20px;
+            }
+            
+            .section-title h3 {
+                font-size: 1.8rem;
+            }
+            
+            .tech-categories {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tech-category {
+                width: 100%;
+            }
+        }
+        
+        /* Scroll Animation */
+        [data-animate] {
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+        
+        [data-animate="fadeIn"] {
+            transform: translateY(20px);
+        }
+        
+        [data-animate="fadeInLeft"] {
+            transform: translateX(-20px);
+        }
+        
+        [data-animate="fadeInRight"] {
+            transform: translateX(20px);
+        }
+        
+        [data-animate].animated {
+            opacity: 1;
+            transform: translate(0);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <img src="https://via.placeholder.com/40" alt="TestGenius AI Logo">
+                    <h1>TestGenius AI</h1>
+                </div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#tech-stack">Tech Stack</a>
+                    <a href="#evaluation">Evaluation</a>
+                    <a href="#demo">Demo</a>
+                    <a href="#generator">Generator</a>
+                    <a href="#" class="cta-button">Get Started</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h2>AI-Powered Automated Testing Agent</h2>
+            <p>Transform your testing workflow with intelligent automation that analyzes requirements, interprets designs, and generates comprehensive test plans with execution scripts.</p>
+            <div class="hero-buttons">
+                <a href="#generator" class="cta-button">Generate Tests Now</a>
+                <a href="#demo" class="secondary-button">Watch Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h3>Complete Test Automation Solution</h3>
+                <p>End-to-end testing automation powered by artificial intelligence</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-animate="fadeIn">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h4>Requirement Analysis</h4>
+                    <p>Automatically parse and analyze application requirements to identify critical test scenarios and edge cases with risk assessment.</p>
+                </div>
+                <div class="feature-card" data-animate="fadeIn">
+                    <div class="feature-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h4>Figma Design Interpretation</h4>
+                    <p>Extract UI test cases directly from Figma designs, including layout validation, color schemes, responsive behavior, and accessibility checks.</p>
+                </div>
+                <div class="feature-card" data-animate="fadeIn">
+                    <div class="feature-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h4>Comprehensive Test Plans</h4>
+                    <p>Generate structured test plans covering functional, UI, integration, performance, and regression testing with prioritized test cases.</p>
+                </div>
+                <div class="feature-card" data-animate="fadeIn">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h4>Automated Test Scripts</h4>
+                    <p>Convert test cases into executable scripts in Selenium, Cypress, Playwright, Appium, or pytest with built-in best practices.</p>
+                </div>
+                <div class="feature-card" data-animate="fadeIn">
+                    <div class="feature-icon">
+                        <i class="fas fa-random"></i>
+                    </div>
+                    <h4>CI/CD Integration</h4>
+                    <p>Seamless integration with Jenkins, GitHub Actions, CircleCI, and other CI/CD tools for continuous testing in your pipeline.</p>
+                </div>
+                <div class="feature-card" data-animate="fadeIn">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h4>Analytics & Reporting</h4>
+                    <p>Detailed test reports with screenshots, videos, performance metrics, and coverage analysis with historical trends.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack Section -->
+    <section class="tech-stack" id="tech-stack">
+        <div class="container">
+            <div class="section-title">
+                <h3>Our Technology Stack</h3>
+                <p>Powering intelligent test automation with cutting-edge technologies</p>
+            </div>
+            <div class="tech-categories">
+                <div class="tech-category" data-animate="fadeIn">
+                    <h4><i class="fas fa-code"></i> Test Frameworks</h4>
+                    <ul>
+                        <li><i class="fab fa-chrome"></i> Selenium WebDriver</li>
+                        <li><i class="fas fa-bolt"></i> Cypress</li>
+                        <li><i class="fas fa-theater-masks"></i> Playwright</li>
+                        <li><i class="fas fa-mobile-alt"></i> Appium</li>
+                        <li><i class="fas fa-flask"></i> pytest</li>
+                    </ul>
+                </div>
+                <div class="tech-category" data-animate="fadeIn">
+                    <h4><i class="fas fa-cogs"></i> CI/CD Tools</h4>
+                    <ul>
+                        <li><i class="fab fa-jenkins"></i> Jenkins</li>
+                        <li><i class="fab fa-github"></i> GitHub Actions</li>
+                        <li><i class="fab fa-gitlab"></i> GitLab CI/CD</li>
+                        <li><i class="fas fa-circle-notch"></i> CircleCI</li>
+                        <li><i class="fab fa-microsoft"></i> Azure DevOps</li>
+                    </ul>
+                </div>
+                <div class="tech-category" data-animate="fadeIn">
+                    <h4><i class="fas fa-keyboard"></i> Languages</h4>
+                    <ul>
+                        <li><i class="fab fa-python"></i> Python</li>
+                        <li><i class="fab fa-js"></i> JavaScript</li>
+                        <li><i class="fab fa-java"></i> Java</li>
+                        <li><i class="fas fa-code"></i> TypeScript</li>
+                    </ul>
+                </div>
+                <div class="tech-category" data-animate="fadeIn">
+                    <h4><i class="fas fa-paint-brush"></i> Design Analysis</h4>
+                    <ul>
+                        <li><i class="fab fa-figma"></i> Figma API</li>
+                        <li><i class="fas fa-eye"></i> Visual Regression</li>
+                        <li><i class="fas fa-universal-access"></i> Accessibility</li>
+                        <li><i class="fas fa-ruler-combined"></i> Layout Validation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expected Outcomes Section -->
+    <section class="outcomes" id="outcomes">
+        <div class="container">
+            <div class="section-title">
+                <h3>Guaranteed Outcomes</h3>
+                <p>What you can expect from our automated testing solution</p>
+            </div>
+            <div class="outcomes-grid">
+                <div class="outcome-card" data-animate="fadeIn">
+                    <h4><i class="fas fa-shield-alt"></i> Robust Test Plans</h4>
+                    <p>Comprehensive test coverage for all key functionalities with risk-based prioritization and detailed test scenarios.</p>
+                </div>
+                <div class="outcome-card" data-animate="fadeIn">
+                    <h4><i class="fas fa-list-ol"></i> Structured Test Cases</h4>
+                    <p>Well-organized manual and automated test cases with clear steps, expected results, and preconditions.</p>
+                </div>
+                <div class="outcome-card" data-animate="fadeIn">
+                    <h4><i class="fas fa-code"></i> Ready-to-Run Scripts</h4>
+                    <p>Production-quality automation scripts following best practices with built-in error handling and reporting.</p>
+                </div>
+                <div class="outcome-card" data-animate="fadeIn">
+                    <h4><i class="fas fa-tasks"></i> CI/CD Ready</h4>
+                    <p>Tests configured for seamless integration with your continuous integration and delivery pipelines.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evaluation Criteria Section -->
+    <section class="evaluation" id="evaluation">
+        <div class="container">
+            <div class="section-title">
+                <h3>Evaluation Criteria</h3>
+                <p>How we measure the success of our automated testing solution</p>
+            </div>
+            <div class="criteria-grid">
+                <div class="criterion" data-animate="fadeIn">
+                    <h4>Test Plan Accuracy <span class="score">98%</span></h4>
+                    <p>Completeness and precision of generated test plans in covering all requirements and edge cases.</p>
+                </div>
+                <div class="criterion" data-animate="fadeIn">
+                    <h4>Test Case Efficiency <span class="score">95%</span></h4>
+                    <p>Optimal test cases with minimal redundancy and maximum coverage of functionality.</p>
+                </div>
+                <div class="criterion" data-animate="fadeIn">
+                    <h4>Execution Success Rate <span class="score">97%</span></h4>
+                    <p>Percentage of automated tests that execute successfully without false positives/negatives.</p>
+                </div>
+                <div class="criterion" data-animate="fadeIn">
+                    <h4>CI/CD Integration <span class="score">100%</span></h4>
+                    <p>Seamless compatibility with major CI/CD tools and smooth pipeline integration.</p>
+                </div>
+                <div class="criterion" data-animate="fadeIn">
+                    <h4>Scalability <span class="score">96%</span></h4>
+                    <p>Ability to handle projects of varying sizes and adapt to different technologies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h3>Our Automated Testing Process</h3>
+                <p>From requirements to automated tests in four simple steps</p>
+            </div>
+            <div class="steps">
+                <div class="step" data-animate="fadeIn">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Requirement & Design Analysis</h4>
+                        <p>Our AI agent parses your requirements documents and Figma designs to understand functionality, user flows, and UI specifications.</p>
+                    </div>
+                </div>
+                <div class="step" data-animate="fadeIn">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Test Case Generation</h4>
+                        <p>The system identifies all test scenarios, generates detailed test cases with steps and expected results, and prioritizes them based on risk assessment.</p>
+                    </div>
+                </div>
+                <div class="step" data-animate="fadeIn">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Automated Script Creation</h4>
+                        <p>Test cases are converted into executable scripts in your preferred framework with built-in best practices for maintainable automation.</p>
+                    </div>
+                </div>
+                <div class="step" data-animate="fadeIn">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Execution & Integration</h4>
+                        <p>Tests are executed automatically and results are integrated with your CI/CD pipeline, providing real-time feedback on code changes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo" id="demo">
+        <div class="container">
+            <div class="section-title">
+                <h3>See It In Action</h3>
+                <p>Watch how we transform requirements into automated tests in minutes</p>
+            </div>
+            <div class="demo-container">
+                <div class="demo-content" data-animate="fadeInRight">
+                    <h3>From Design to Automated Tests</h3>
+                    <p>Our demo shows the complete workflow from analyzing a Figma design for a banking application to generating a full suite of automated test scripts.</p>
+                    <p>See how the AI identifies all UI components, user flows, and generates functional tests, visual regression tests, and accessibility checks.</p>
+                    <div class="hero-buttons">
+                        <a href="#generator" class="cta-button">Try It Yourself</a>
+                        <a href="#" class="secondary-button">View Case Studies</a>
+                    </div>
+                </div>
+                <div class="demo-video" data-animate="fadeInLeft">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="TestGenius AI Demo" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CI/CD Integration Section -->
+    <section class="ci-cd">
+        <div class="container">
+            <div class="section-title">
+                <h3>Seamless CI/CD Integration</h3>
+                <p>Our automated tests work with all major continuous integration platforms</p>
+            </div>
+            <div class="ci-cd-badges">
+                <div class="ci-cd-badge" data-animate="fadeIn">
+                    <img src="https://via.placeholder.com/30x30" alt="Jenkins">
+                    <span>Jenkins</span>
+                </div>
+                <div class="ci-cd-badge" data-animate="fadeIn">
+                    <img src="https://via.placeholder.com/30x30" alt="GitHub Actions">
+                    <span>GitHub Actions</span>
+                </div>
+                <div class="ci-cd-badge" data-animate="fadeIn">
+                    <img src="https://via.placeholder.com/30x30" alt="CircleCI">
+                    <span>CircleCI</span>
+                </div>
+                <div class="ci-cd-badge" data-animate="fadeIn">
+                    <img src="https://via.placeholder.com/30x30" alt="GitLab CI">
+                    <span>GitLab CI</span>
+                </div>
+                <div class="ci-cd-badge" data-animate="fadeIn">
+                    <img src="https://via.placeholder.com/30x30" alt="Azure DevOps">
+                    <span>Azure DevOps</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Test Generator Section -->
+    <section class="test-generator" id="generator">
+        <div class="container">
+            <div class="section-title">
+                <h3>Generate Your Test Plan</h3>
+                <p>Experience the power of AI-driven test automation</p>
+            </div>
+            <div class="generator-form" data-animate="fadeIn">
+                <form id="testGeneratorForm">
+                    <div class="form-group">
+                        <label for="appName">Application Name</label>
+                        <input type="text" id="appName" name="appName" required placeholder="e.g., Banking Mobile App">
+                    </div>
+                    <div class="form-group">
+                        <label for="appType">Application Type</label>
+                        <select id="appType" name="appType" required>
+                            <option value="">Select application type</option>
+                            <option value="web">Web Application</option>
+                            <option value="mobile">Mobile Application</option>
+                            <option value="desktop">Desktop Application</option>
+                            <option value="api">API/Backend Service</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="requirements">Key Requirements</label>
+                        <textarea id="requirements" name="requirements" required placeholder="Describe the main features and functionality of your application..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="figmaLink">Figma Design Link (optional)</label>
+                        <input type="url" id="figmaLink" name="figmaLink" placeholder="Paste your Figma design URL">
+                    </div>
+                    <div class="form-group">
+                        <label for="testingFramework">Preferred Testing Framework</label>
+                        <select id="testingFramework" name="testingFramework">
+                            <option value="selenium">Selenium WebDriver</option>
+                            <option value="cypress">Cypress</option>
+                            <option value="playwright">Playwright</option>
+                            <option value="appium">Appium (for mobile)</option>
+                            <option value="pytest">pytest (for API)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ciTool">CI/CD Tool (optional)</label>
+                        <select id="ciTool" name="ciTool">
+                            <option value="">Not specified</option>
+                            <option value="jenkins">Jenkins</option>
+                            <option value="github">GitHub Actions</option>
+                            <option value="gitlab">GitLab CI</option>
+                            <option value="circleci">CircleCI</option>
+                            <option value="azure">Azure DevOps</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="reset" class="secondary-button">Clear</button>
+                        <button type="submit" class="cta-button">Generate Test Plan</button>
+                    </div>
+                </form>
+                
+                <div class="results" id="testResults">
+                    <h4>Generated Test Plan for <span id="resultsAppName"></span></h4>
+                    <p>Our AI has analyzed your requirements and generated the following comprehensive test plan:</p>
+                    
+                    <div id="testPlanSummary" class="test-case" style="margin-bottom: 25px;">
+                        <h5>Test Plan Summary</h5>
+                        <p id="testPlanStats"></p>
+                        <p id="testPlanCoverage"></p>
+                    </div>
+                    
+                    <div id="testCasesContainer">
+                        <!-- Test cases will be inserted here by JavaScript -->
+                    </div>
+                    
+                    <div class="form-actions" style="margin-top: 20px;">
+                        <button id="exportPdfBtn" class="secondary-button">
+                            <i class="fas fa-file-pdf"></i> Export as PDF
+                        </button>
+                        <button id="exportJsonBtn" class="secondary-button">
+                            <i class="fas fa-file-code"></i> Export as JSON
+                        </button>
+                        <button id="generateScriptsBtn" class="cta-button">
+                            <i class="fas fa-code"></i> Generate Test Scripts
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>TestGenius AI</h4>
+                    <p>Intelligent test automation powered by artificial intelligence for modern development teams.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#tech-stack">Tech Stack</a></li>
+                        <li><a href="#evaluation">Evaluation</a></li>
+                        <li><a href="#demo">Demo</a></li>
+                        <li><a href="#generator">Test Generator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 TestGenius AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('testGeneratorForm');
+            const testResults = document.getElementById('testResults');
+            const resultsAppName = document.getElementById('resultsAppName');
+            const testPlanStats = document.getElementById('testPlanStats');
+            const testPlanCoverage = document.getElementById('testPlanCoverage');
+            const testCasesContainer = document.getElementById('testCasesContainer');
+            const exportPdfBtn = document.getElementById('exportPdfBtn');
+            const exportJsonBtn = document.getElementById('exportJsonBtn');
+            const generateScriptsBtn = document.getElementById('generateScriptsBtn');
+            
+            let generatedTestCases = [];
+            let testPlanData = {};
+            
+            // Scroll animation observer
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('[data-animate]');
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementPosition < windowHeight - 100) {
+                        element.classList.add('animated');
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Run once on load
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const appName = document.getElementById('appName').value;
+                const appType = document.getElementById('appType').value;
+                const requirements = document.getElementById('requirements').value;
+                const figmaLink = document.getElementById('figmaLink').value;
+                const testingFramework = document.getElementById('testingFramework').value;
+                const ciTool = document.getElementById('ciTool').value;
+                
+                // Show loading state
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+                submitBtn.disabled = true;
+                
+                // Simulate AI processing
+                setTimeout(() => {
+                    // Update results header
+                    resultsAppName.textContent = appName;
+                    
+                    // Generate test plan data
+                    testPlanData = {
+                        appName,
+                        appType,
+                        requirements,
+                        figmaLink: figmaLink || 'Not provided',
+                        testingFramework,
+                        ciTool: ciTool || 'Not specified',
+                        generatedAt: new Date().toISOString()
+                    };
+                    
+                    // Generate sample test cases based on input
+                    generatedTestCases = generateTestCases(appName, appType, requirements, figmaLink, testingFramework);
+                    testPlanData.testCases = generatedTestCases;
+                    
+                    // Update test plan summary
+                    updateTestPlanSummary(generatedTestCases);
+                    
+                    // Display test cases
+                    displayTestCases(generatedTestCases);
+                    
+                    // Show results section
+                    testResults.style.display = 'block';
+                    
+                    // Reset button
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                    
+                    // Scroll to results
+                    testResults.scrollIntoView({ behavior: 'smooth' });
+                }, 2000);
+            });
+            
+            exportJsonBtn.addEventListener('click', function() {
+                if (generatedTestCases.length === 0) {
+                    alert('No test cases to export. Please generate a test plan first.');
+                    return;
+                }
+                
+                const dataStr = JSON.stringify(testPlanData, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+                
+                const exportFileDefaultName = `test_plan_${testPlanData.appName.replace(/\s+/g, '_').toLowerCase()}.json`;
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', exportFileDefaultName);
+                linkElement.click();
+            });
+            
+            exportPdfBtn.addEventListener('click', function() {
+                if (generatedTestCases.length === 0) {
+                    alert('No test cases to export. Please generate a test plan first.');
+                    return;
+                }
+                
+                alert('In a real implementation, this would generate a PDF report of the test plan with all test cases.');
+            });
+            
+            generateScriptsBtn.addEventListener('click', function() {
+                if (generatedTestCases.length === 0) {
+                    alert('No test cases to convert. Please generate a test plan first.');
+                    return;
+                }
+                
+                const framework = document.getElementById('testingFramework').value;
+                const ciTool = document.getElementById('ciTool').value;
+                
+                let message = `Generating executable test scripts in ${framework}...`;
+                if (ciTool) {
+                    message += `\n\nConfiguration for ${ciTool} will be included.`;
+                }
+                
+                alert(message);
+            });
+            
+            function updateTestPlanSummary(testCases) {
+                // Calculate stats
+                const totalCases = testCases.length;
+                const functionalCases = testCases.filter(tc => tc.type === 'functional').length;
+                const uiCases = testCases.filter(tc => tc.type === 'ui').length;
+                const smokeCases = testCases.filter(tc => tc.type === 'smoke').length;
+                const highPriority = testCases.filter(tc => tc.priority === 'high').length;
+                const mediumPriority = testCases.filter(tc => tc.priority === 'medium').length;
+                
+                // Update summary
+                testPlanStats.innerHTML = `
+                    <strong>Total Test Cases:</strong> ${totalCases} |
+                    <strong>Functional:</strong> ${functionalCases} |
+                    <strong>UI:</strong> ${uiCases} |
+                    <strong>Smoke:</strong> ${smokeCases}<br>
+                    <strong>Priority:</strong> High (${highPriority}) | Medium (${mediumPriority}) | Low (${totalCases - highPriority - mediumPriority})
+                `;
+                
+                testPlanCoverage.innerHTML = `
+                    <strong>Coverage Areas:</strong> ${getCoverageAreas(testCases).join(', ')}
+                `;
+            }
+            
+            function getCoverageAreas(testCases) {
+                const areas = new Set();
+                
+                // Add generic areas
+                areas.add('Core Functionality');
+                areas.add('User Interface');
+                
+                // Add areas based on test cases
+                if (testCases.some(tc => tc.title.includes('login'))) {
+                    areas.add('Authentication');
+                }
+                if (testCases.some(tc => tc.title.includes('search'))) {
+                    areas.add('Search');
+                }
+                if (testCases.some(tc => tc.title.includes('responsive'))) {
+                    areas.add('Responsive Design');
+                }
+                if (testCases.some(tc => tc.title.includes('browser'))) {
+                    areas.add('Cross-Browser');
+                }
+                
+                return Array.from(areas);
+            }
+            
+            function generateTestCases(appName, appType, requirements, figmaLink, framework) {
+                // This is a simplified simulation - in a real app, this would call an AI API
+                const testCases = [];
+                const now = new Date();
+                
+                // Always add these general test cases
+                testCases.push({
+                    id: `TC-${now.getTime()}-001`,
+                    title: 'Application launches successfully',
+                    description: 'Verify that the application launches without errors',
+                    type: 'smoke',
+                    priority: 'high',
+                    steps: ['Launch the application', 'Verify no errors are displayed'],
+                    expected: 'Application launches successfully with no errors',
+                    tags: ['core', 'smoke']
+                });
+                
+                testCases.push({
+                    id: `TC-${now.getTime()}-002`,
+                    title: 'Basic UI layout verification',
+                    description: 'Verify that the main UI components are present and correctly laid out',
+                    type: 'ui',
+                    priority: 'high',
+                    steps: ['Launch the application', 'Verify all main UI components are visible'],
+                    expected: 'All main UI components are present and correctly positioned',
+                    tags: ['ui', 'layout']
+                });
+                
+                // Add test cases based on application type
+                if (appType === 'web') {
+                    testCases.push({
+                        id: `TC-${now.getTime()}-003`,
+                        title: 'Responsive design validation',
+                        description: 'Verify the application adapts to different screen sizes',
+                        type: 'ui',
+                        priority: 'medium',
+                        steps: [
+                            'Open application in desktop view (≥1200px)',
+                            'Resize browser to tablet dimensions (768px)',
+                            'Resize browser to mobile dimensions (≤576px)',
+                            'Verify UI adapts correctly at each breakpoint'
+                        ],
+                        expected: 'Application UI adapts properly to all screen sizes without horizontal scrolling',
+                        tags: ['ui', 'responsive']
+                    });
+                    
+                    testCases.push({
+                        id: `TC-${now.getTime()}-004`,
+                        title: 'Cross-browser compatibility - Chrome',
+                        description: 'Verify application works correctly in Chrome browser',
+                        type: 'compatibility',
+                        priority: 'high',
+                        steps: [
+                            'Open application in Chrome browser',
+                            'Execute smoke test scenarios',
+                            'Verify all functionality works as expected'
+                        ],
+                        expected: 'All tested functionality works correctly in Chrome',
+                        tags: ['compatibility', 'chrome']
+                    });
+                    
+                    testCases.push({
+                        id: `TC-${now.getTime()}-005`,
+                        title: 'Cross-browser compatibility - Firefox',
+                        description: 'Verify application works correctly in Firefox browser',
+                        type: 'compatibility',
+                        priority: 'high',
+                        steps: [
+                            'Open application in Firefox browser',
+                            'Execute smoke test scenarios',
+                            'Verify all functionality works as expected'
+                        ],
+                        expected: 'All tested functionality works correctly in Firefox',
+                        tags: ['compatibility', 'firefox']
+                    });
+                } else if (appType === 'mobile') {
+                    testCases.push({
+                        id: `TC-${now.getTime()}-003`,
+                        title: 'Device orientation handling',
+                        description: 'Verify the application handles portrait/landscape mode changes',
+                        type: 'ui',
+                        priority: 'medium',
+                        steps: [
+                            'Launch application in portrait mode',
+                            'Verify UI renders correctly',
+                            'Rotate device to landscape mode',
+                            'Verify UI adapts correctly',
+                            'Rotate back to portrait mode'
+                        ],
+                        expected: 'Application handles orientation changes properly with no layout issues',
+                        tags: ['ui', 'orientation']
+                    });
+                    
+                    testCases.push({
+                        id: `TC-${now.getTime()}-004`,
+                        title: 'Network connectivity handling',
+                        description: 'Verify application handles network interruptions gracefully',
+                        type: 'functional',
+                        priority: 'medium',
+                        steps: [
+                            'Launch application with network connection',
+                            'Perform key operations',
+                            'Disable network connection mid-operation',
+                            'Verify application handles offline state properly',
+                            'Re-enable network connection'
+                        ],
+                        expected: 'Application handles network interruptions with appropriate messaging and functionality',
+                        tags: ['functional', 'network']
+                    });
+                }
+                
+                // Add test cases based on requirements text
+                if (requirements.toLowerCase().includes('login')) {
+                    testCases.push({
+                        id: `TC-${now.getTime()}-101`,
+                        title: 'User login with valid credentials',
+                        description: 'Verify users can log in with valid credentials',
+                        type: 'functional',
+                        priority: 'high',
+                        steps: [
+                            'Navigate to login page',
+                            'Enter valid username and password',
+                            'Click login button'
+                        ],
+                        expected: 'User is successfully logged in and redirected to dashboard/home page',
+                        tags: ['auth', 'login']
+                    });
+                    
+                    testCases.push({
+                        id: `TC-${now.getTime()}-102`,
+                        title: 'Login attempt with invalid credentials',
+                        description: 'Verify system handles invalid credentials appropriately',
+                        type: 'functional',
+                        priority: 'medium',
+                        steps: [
+                            'Navigate to login page',
+                            'Enter invalid username or password',
+                            'Click login button'
+                        ],
+                        expected: 'Appropriate error message is displayed and user is not logged in',
+                        tags: ['auth', 'security']
+                    });
+                    
+                    testCases.push({
+                        id: `TC-${now.getTime()}-103`,
+                        title: 'Password reset functionality',
+                        description: 'Verify users can request and reset their password',
+                        type: 'functional',
+                        priority: 'medium',
+                        steps: [
+                            'Navigate to password reset page',
+                            'Enter registered email address',
+                            'Click "Reset Password" button',
+                            'Check email for reset link',
+                            'Follow link and set new password'
+                        ],
+                        expected: 'Password is successfully reset and user can login with new credentials',
+                        tags: ['auth', 'password']
+                    });
+                }
+                
+                if (requirements.toLowerCase().includes('search')) {
+                    testCases.push({
+                        id: `TC-${now.getTime()}-201`,
+                        title: 'Search functionality with valid term',
+                        description: 'Verify users can search for content',
+                        type: 'functional',
+                        priority: 'high',
+                        steps: [
+                            'Navigate to search page',
+                            'Enter valid search term',
+                            'Click search button or press Enter'
+                        ],
+                        expected: 'Relevant results are displayed for the search term',
+                        tags: ['search', 'core']
+                    });
+                    
+                    testCases.push({
+                        id: `TC-${now.getTime()}-202`,
+                        title: 'Search with empty term',
+                        description: 'Verify system handles empty search term appropriately',
+                        type: 'functional',
+                        priority: 'low',
+                        steps: [
+                            'Navigate to search page',
+                            'Leave search field empty',
+                            'Click search button'
+                        ],
+                        expected: 'Appropriate message is displayed suggesting to enter a search term',
+                        tags: ['search', 'validation']
+                    });
+                    
+                    testCases.push({
+                        id: `TC-${now.getTime()}-203`,
+                        title: 'Search results pagination',
+                        description: 'Verify search results can be paginated when applicable',
+                        type: 'functional',
+                        priority: 'medium',
+                        steps: [
+                            'Perform search that returns multiple results',
+                            'Verify pagination controls are visible',
+                            'Navigate to next page of results',
+                            'Verify results change appropriately'
+                        ],
+                        expected: 'Pagination works correctly showing the correct subset of results',
+                        tags: ['search', 'pagination']
+                    });
+                }
+                
+                // If Figma link was provided, add UI-specific test cases
+                if (figmaLink) {
+                    testCases.push({
+                        id: `TC-${now.getTime()}-301`,
+                        title: 'UI design validation - Main screen',
+                        description: 'Verify UI matches Figma design specifications for main screen',
+                        type: 'ui',
+                        priority: 'high',
+                        steps: [
+                            'Compare application main screen to Figma design',
+                            'Verify layout, spacing, and colors match design',
+                            'Verify all main components are present'
+                        ],
+                        expected: 'All UI elements match the Figma design specifications',
+                        tags: ['ui', 'visual']
+                    });
+                    
+                    testCases.push({
+                        id: `TC-${now.getTime()}-302`,
+                        title: 'Interactive elements validation',
+                        description: 'Verify all interactive elements match Figma design states',
+                        type: 'ui',
+                        priority: 'medium',
+                        steps: [
+                            'Identify all interactive elements in Figma',
+                            'Verify equivalent elements exist in application',
+                            'Verify hover/active/focus states match design'
+                        ],
+                        expected: 'All interactive elements are present and match design states',
+                        tags: ['ui', 'interaction']
+                    });
+                    
+                    testCases.push({
+                        id: `TC-${now.getTime()}-303`,
+                        title: 'Accessibility color contrast validation',
+                        description: 'Verify text color contrast meets WCAG accessibility standards',
+                        type: 'ui',
+                        priority: 'medium',
+                        steps: [
+                            'Identify all text elements in Figma design',
+                            'Verify contrast ratio between text and background',
+                            'Check against WCAG AA standards (4.5:1 for normal text)'
+                        ],
+                        expected: 'All text elements meet minimum contrast requirements',
+                        tags: ['ui', 'accessibility']
+                    });
+                }
+                
+                return testCases;
+            }
+            
+            function displayTestCases(testCases) {
+                testCasesContainer.innerHTML = '';
+                
+                testCases.forEach(testCase => {
+                    const testCaseElement = document.createElement('div');
+                    testCaseElement.className = 'test-case';
+                    
+                    let priorityClass = '';
+                    switch(testCase.priority) {
+                        case 'high':
+                            priorityClass = 'danger-color';
+                            break;
+                        case 'medium':
+                            priorityClass = 'warning-color';
+                            break;
+                        default:
+                            priorityClass = 'success-color';
+                    }
+                    
+                    testCaseElement.innerHTML = `
+                        <h5>
+                            ${testCase.title}
+                            <span class="badge" style="background-color: var(--${priorityClass}); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem;">
+                                ${testCase.priority} priority
+                            </span>
+                        </h5>
+                        <div class="test-meta">
+                            <span>${testCase.type.toUpperCase()}</span>
+                            ${testCase.tags.map(tag => `<span>${tag}</span>`).join('')}
+                        </div>
+                        <p><strong>Description:</strong> ${testCase.description}</p>
+                        <p><strong>Steps:</strong></p>
+                        <ol>
+                            ${testCase.steps.map(step => `<li>${step}</li>`).join('')}
+                        </ol>
+                        <p><strong>Expected Result:</strong> ${testCase.expected}</p>
+                    `;
+                    
+                    testCasesContainer.appendChild(testCaseElement);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
